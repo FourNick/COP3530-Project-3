@@ -21,7 +21,7 @@ int main() {
 		{
 			nonprofits[i]->printName();
 		} */
-		cout << endl;
+		// cout << endl;
 		cout << "done" << endl;
 		name.close();
 	}
