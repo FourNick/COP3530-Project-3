@@ -17,10 +17,10 @@ int main() {
 			NGO* temp = new NGO(inLine);
 			nonprofits.push_back(temp);
 		}
-		for (int i = 0; i < 100; i++)
+		/* for (int i = 0; i < 100; i++)
 		{
 			nonprofits[i]->printName();
-		}
+		} */
 		cout << endl;
 		cout << "done" << endl;
 		name.close();
