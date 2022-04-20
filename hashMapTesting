@@ -18,12 +18,7 @@ struct NGO{
     NGO* next;
     vector<NGO> NGOobj;
 
-public:
-    //NGO(unsigned int income, string name, int EIN, string zip, string address, string state);
-
 };
-
-
 
 
 class HashMap{
@@ -31,41 +26,10 @@ private:
 
     unsigned int tableSize = 0;
     //static const unsigned int tableSize = 1000000;
-    unsigned int twSize = 10000;
-    unsigned int realSize;
-    float maxLoadFactor = 0.75; // should not reach this.
+    float maxLoadFactor = 0.75; 
     float elementCount = 0;
     float currLoadFactor = 0; // # of elements / # bucket count ---- buckets = tableSize
-    //vector<NGO> NGOvec;
-
-    /*
-    Data::Data(string state, int pcIncome, int pop, int mhIncome, int numOfHH)
-{
-    this->state = state;
-    this->pcIncome = pcIncome;
-    this->pop = pop;
-    this->mhIncome = mhIncome;
-    this->numOfHH = numOfHH;
-
-}
-
-     */
-
-    /*
-    int EIN;
-	string income;
-	int incomeCode;
-	long int income;
-	string zip;
-	string address;
-	string state;
-     */
-
-
-
-
-
-
+   
 
     //NGO* hashTable[];
 
@@ -84,7 +48,7 @@ public:
     void PrintNGOsInIndex(int index); // all NGOs in specific bucket
     void Findname(unsigned int key);
     void reHash();
-    void reHashh();
+   
 
     //NGO NGOobj;
 
@@ -92,8 +56,6 @@ public:
 
 
     //NGO* hashTable = new NGO[tableSize];
-
-
 
 
 };
@@ -152,106 +114,6 @@ void HashMap::AddNGO(unsigned int income, vector<NGO> tempObj){
 
 }
 
-/*
-void HashMap::AddNGO(unsigned int income, string name){
-
-    // here make sure to not include duplicates
-
-    unsigned int index = hashF(income);
-
-    if (hashTable[index]->income != income) { // testing to not include dups, works, but now include the values of the dups into the key.
-
-
-        if (hashTable[index]->income == 0) // if table is empty
-        {
-            hashTable[index]->income = income;
-            hashTable[index]->name = name;
-        }
-        else // if table isn't empty
-        {
-            NGO *Ptr = hashTable[index];
-            NGO *n = new NGO;
-            n->income = income;
-            n->name = name;
-            n->next = nullptr;
-            while (Ptr->next != nullptr) {
-                Ptr = Ptr->next;
-            }
-            Ptr->next = n;
-        }
-        elementCount++;
-        cout << "element Count: " << elementCount << endl;
-    }
-
-    currLoadFactor = elementCount / tableSize;
-
-    if (currLoadFactor >= maxLoadFactor){
-      //  reHash();
-    }
-    cout << "currLoadFactor: " << currLoadFactor << endl;
-
-}
-*/
-/*
- int *p = new int[5]; // locate memory in heap
-    int *q = new int[10];// locate memory in heap
-
-    for(int j=0; j<5;j++)
-        p[j] = j;
-
-    for(int i=0; i<5;i++)
-        q[i] = p[i];
-
-    delete []p;//Delete the old array 'p'
-    p = q; // Assign the pointer of 'q' to 'p'
-    q = NULL; // delete the location of pointer 'q'
- */
-
-/*
-void HashMap::reHashh(){
-    NGO* tempMap = new NGO[tableSize * 2];
-    for(int j=0; j<5;j++)
-        p[j] = j;
-
-    for(int i=0; i<5;i++)
-        q[i] = p[i];
-
-
-}
- */
-
-/*
-void HashMap::reHash() {
-int OldCapacity = tableSize;
-static const int tempSize = tableSize * 2 + 1;
-
-NGO* newHT = new NGO[tempSize];
-
-
-//fill in the new temp table with old info
-    for (int i = 0; i < OldCapacity; ++i)
-    {
-        NGO *n = hashTable[i];
-        while (n != nullptr)
-        {
-            // advance n *before* moving HashMap to new hash bed
-            NGO *tmp = n;
-            n = n->next;
-
-            // find the proper collision list pointer.
-            NGO*& bucket = newHT[hashF(tmp->income) % tempSize];
-            tmp->next = bucket;
-            bucket = tmp;
-        }
-    }
-
-    delete [] *hashTable;
-    hashTable = newHT;
-
-}
- */
-
-
 int HashMap::NumberOfNGOsInIndex(int index){
     int count = 0;
 
@@ -274,15 +136,7 @@ int HashMap::NumberOfNGOsInIndex(int index){
 HashMap::HashMap(unsigned int tSize){
     tableSize = tSize;
     hashTable[tSize];
-
-   // tableSize = tSize;
-    int oldtsize = tableSize * 2;
-    //tableSize = tSize;
-    //HashMap** newHashTable = new HashMap*[tSize]();
-
-
-    //NGO* hashTable[tSize];
-    //hashTable = new(tSize);
+    
     for (int i = 0; i < tableSize; i++) // changing tableSize to tSize
     {
         hashTable[i] = new NGO;
@@ -304,8 +158,8 @@ void HashMap::PrintTable() {
         if (number > 0) {
             cout << "-------------------" << endl;
             cout << "index = " << i << endl;
-            cout << hashTable[i]->NGOobj[0].income << endl;
-            cout << hashTable[i]->NGOobj[0].name << endl;
+            cout << hashTable[i]->NGOobj[i].income << endl;
+            cout << hashTable[i]->NGOobj[i].name << endl;
             cout << "# of NGOs = " << number << endl;
             cout << "-------------------" << endl;
         }
@@ -373,15 +227,7 @@ int main() {
     HashMap Hashy(20); // calls default constructor
     NGO tempObj;
     vector<NGO> ngoVec;
-
-    /*
-     unsigned int income;
-    string name;
-    int EIN;
-    string zip;
-    string address;
-    string state;
-     */
+    
     NGO tempObj2;
     vector<NGO> ngoVec2;
 
@@ -423,18 +269,7 @@ int main() {
     ngoVec2.push_back(tempObj2);
     ngoVec3.push_back(tempObj3);
     ngoVec4.push_back(tempObj4);
-
-
-   // HashMap hashObj = *new HashMap(20);
-
-
-    //car *p = new car("Honda", 2017);
-    //newMap->elementCount = 0;
-
-
-   // Hashy.PrintTable(); // should print 0 NGOs rn for testing
-
-  // hashObj.AddNGO(14, "cocoa codld");
+    
 
     Hashy.AddNGO(542, ngoVec); // yes
     Hashy.AddNGO(546, ngoVec2); // yes
@@ -443,11 +278,7 @@ int main() {
     Hashy.AddNGO(502, ngoVec4); //
 
     Hashy.PrintTable();
-
-  //  Hashy.PrintTable();
-
-    //Hashy.PrintNGOsInIndex(17);
-
+    
     // check if isDigit as well. Doesn't account for negative sign so issue there.
     /*
     while(key != -1){
@@ -459,19 +290,6 @@ int main() {
         }
     }
     */
-
-
-                            // 800,000
-   // HashMap testHmap(800000);
-
-
-   // testHmap.hashF(3500000001);
-                        // 1,000,000
-    // 1,234,567;  GoodWill
-
-
-
-
     return 0;
 }
 
