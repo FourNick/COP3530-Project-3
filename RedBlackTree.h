@@ -1,3 +1,4 @@
+#pragma once
 #include "NGO.h"
 #include <vector>
 using namespace std;
@@ -10,7 +11,7 @@ struct Node {
     Node* right;
     Node* parent;
     bool isRed = false; // false if black, true if red
-    vector<NGO> nonprofits; // vector storing all nonprofits that belong to unique profit node
+    vector<NGO*> nonprofits; // vector storing all nonprofits that belong to unique profit node
 
 };
 
@@ -23,7 +24,7 @@ private:
 public:
     RedBlackTree(); // constructor
     Node* getHead(); // get head of red-black tree
-    void insert(NGO toBeInserted); // insert nonprofit
+    void insert(NGO* toBeInserted); // insert nonprofit
     void insertHelper(Node* node); // insertion helper
     void rotateRight(Node* node); // right rotation helper
     void rotateLeft(Node* node); // left rotation helper
@@ -31,8 +32,10 @@ public:
     Node* getGrandparent(Node* node); // get grandparent of node
     Node* getUncle(Node* node); // get uncle of node
     bool isLeftChild(Node* node); // returns true if node is a left child, false if it's a right child
-    vector<NGO> search(string term); // search by name
-    vector<NGO> flatten(); // convert all nonprofits into sorted vector
-    void flattenHelper(Node* node, vector<NGO>& vect); // helper for flatten
+    vector<NGO*> search(unsigned long int income); // search by name
+    vector<NGO*> flatten(Node* node, unsigned long int min, unsigned long int max); // convert all nonprofits into sorted vector
+    void flattenHelper(Node* node, vector<NGO*>& vect, unsigned long int min, unsigned long int max); // helper for flatten
+    Node* searchNode(unsigned long int income); // Get the node with key income
+    Node* searchNodeHelper(unsigned long int income, Node* node); // Helper for searchNode
 
 };

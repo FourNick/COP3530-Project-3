@@ -5,7 +5,7 @@
 using namespace std;
 
 RedBlackTree::RedBlackTree() { // initialize basic values
-    
+
     size = 0;
     head = nullptr;
 
@@ -18,10 +18,10 @@ Node* RedBlackTree::getHead() { // returns head pointer
 
 }
 
-void RedBlackTree::insert(NGO toBeInserted) {
+void RedBlackTree::insert(NGO* toBeInserted) {
 
     Node* node = new Node; // construct new node according to input NGO
-    node->val = toBeInserted.getIncome();
+    node->val = toBeInserted->getIncome();
     node->isRed = true;
     node->left = nullptr;
     node->right = nullptr;
@@ -213,9 +213,9 @@ bool RedBlackTree::isLeftChild(Node* node) { // check if node is a left child. r
 
 }
 
-vector<NGO> RedBlackTree::search(string term) { // find all matches of substring within the tree
+vector<NGO*> RedBlackTree::search(unsigned long int income) { // find all matches of substring within the tree
 
-    vector<NGO> matches;
+    vector<NGO*> matches;
     queue<Node*> q;
     q.push(head);
     while (!q.empty()) { // BFS
@@ -225,9 +225,9 @@ vector<NGO> RedBlackTree::search(string term) { // find all matches of substring
         if (q.front()->right != nullptr)
             q.push(q.front()->right);
 
-        for (NGO nonprofit : q.front()->nonprofits) {
+        for (NGO* nonprofit : q.front()->nonprofits) {
 
-            if (nonprofit.getName().find(term) != std::string::npos)
+            if (nonprofit->getIncome() == income)
                 matches.push_back(nonprofit);
 
         }
@@ -239,26 +239,60 @@ vector<NGO> RedBlackTree::search(string term) { // find all matches of substring
 
 }
 
-vector<NGO> RedBlackTree::flatten() {
+Node* RedBlackTree::searchNode(unsigned long int income) {
 
-    vector<NGO> matches;
-    flattenHelper(head, matches); // pass vector by reference so everything can get added with recursion
+    return searchNodeHelper(income, head);
+
+}
+
+Node* RedBlackTree::searchNodeHelper(unsigned long int income, Node* node) {
+    if (income == node->val)
+    {
+        return node;
+    }
+    else if (income < node->val)
+    {
+        return searchNodeHelper(income, node->left);
+    }
+    else if (income > node->val)
+    {
+        return searchNodeHelper(income, node->right);
+    }
+}
+
+vector<NGO*> RedBlackTree::flatten(Node* node, unsigned long int min, unsigned long int max) {
+
+    vector<NGO*> matches;
+    flattenHelper(head, matches, min, max); // pass vector by reference so everything can get added with recursion
     return matches;
 
 }
 
-void RedBlackTree::flattenHelper(Node* node, vector<NGO>& vect) { // helper function for flatten, uses inorder traversal to maintain sorted vector for easier future operations
+void RedBlackTree::flattenHelper(Node* node, vector<NGO*>& vect, unsigned long int min, unsigned long int max) { // helper function for flatten, uses inorder traversal to maintain sorted vector for easier future operations
+
+
+    if (node->val < min )
+    {
+        return;
+    }
 
     if (node->left != nullptr)
-        flattenHelper(node->left, vect);
+        flattenHelper(node->left, vect, min, max);
+    if (node->val > max)
+    {
+        return;
+    }
+    for (NGO* nonprofit : node->nonprofits) {
+        if (nonprofit->getIncome() > min && nonprofit->getIncome() < max) {
 
-    for (NGO nonprofit : node->nonprofits) {
+            vect.push_back(nonprofit);
 
-        vect.push_back(nonprofit);
+        }
 
     }
 
+
     if (node->right != nullptr)
-        flattenHelper(node->right, vect);
+        flattenHelper(node->right, vect, min, max);
 
 }
