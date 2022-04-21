@@ -12,11 +12,12 @@ NGO::NGO(string inLine) {
 	}
 	EIN = stoi(row[0]);
 	name = row[1];
+	city = row[4];
 	state = row[5];
 	zip = row[6];
 	incomeCode = stoi(row[15]);
 	address = row[3] + ", " + row[4] + ", " + row[5] + ", " + row[6];
-	if (incomeCode != 0 && row[25] != "") {
+	if (row[25] != "") {
 		income = stoll(row[24], nullptr, 10);
 	}
 	else
@@ -62,6 +63,10 @@ string NGO::getState() {
 
 vector<string> NGO::getType() {
 	return types;
+}
+
+string NGO::getCity() {
+	return city;
 }
 /*
 string NGO::setType(string code){

@@ -213,7 +213,7 @@ bool RedBlackTree::isLeftChild(Node* node) { // check if node is a left child. r
 
 }
 
-vector<NGO*> RedBlackTree::search(unsigned long int income) { // find all matches of substring within the tree
+vector<NGO*> RedBlackTree::search(string term) { // find all matches of substring within the tree
 
     vector<NGO*> matches;
     queue<Node*> q;
@@ -227,7 +227,7 @@ vector<NGO*> RedBlackTree::search(unsigned long int income) { // find all matche
 
         for (NGO* nonprofit : q.front()->nonprofits) {
 
-            if (nonprofit->getIncome() == income)
+            if (nonprofit->getName().find(term) != std::string::npos)
                 matches.push_back(nonprofit);
 
         }

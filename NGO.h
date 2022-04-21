@@ -15,6 +15,7 @@ class NGO
 	string zip;
 	string address;	
 	string state;
+	string city;
 	vector<string> types;
 	//string setType(string code);
 	//map<string, string> typeMap;
@@ -29,5 +30,6 @@ public:
 	string getAddress();
 	string getState();
 	vector<string> getType();
+	string getCity();
 };
 

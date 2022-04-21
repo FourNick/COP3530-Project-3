@@ -32,7 +32,7 @@ public:
     Node* getGrandparent(Node* node); // get grandparent of node
     Node* getUncle(Node* node); // get uncle of node
     bool isLeftChild(Node* node); // returns true if node is a left child, false if it's a right child
-    vector<NGO*> search(unsigned long int income); // search by name
+    vector<NGO*> search(string term);  // search by name
     vector<NGO*> flatten(Node* node, unsigned long int min, unsigned long int max); // convert all nonprofits into sorted vector
     void flattenHelper(Node* node, vector<NGO*>& vect, unsigned long int min, unsigned long int max); // helper for flatten
     Node* searchNode(unsigned long int income); // Get the node with key income
